@@ -26,6 +26,11 @@
         Style="{StaticResource MaterialDesignRaisedButton}" Width="100" materialDesign:ShadowAssist.ShadowDepth="Depth2" ToolTip="Resource name: MaterialDesignRaisedButton" HorizontalAlignment="Right" Margin="0,295,21,0" VerticalAlignment="Top" Click="Button_Click">
             _Login
         </Button>
+        <Button
+        KeyboardNavigation.TabIndex="8"
+        Style="{StaticResource MaterialDesignRaisedButton}" Width="100" materialDesign:ShadowAssist.ShadowDepth="Depth2" ToolTip="Resource name: MaterialDesignRaisedButton" Click="Devmode_Click" HorizontalAlignment="Right" Margin="0,295,156,0" VerticalAlignment="Top" >
+            Devmode
+        </Button>
         <PasswordBox
         x:Name="password"
         KeyDown="Password_KeyDown"
@@ -38,5 +43,6 @@
         TabIndex="2"
         materialDesign:HintAssist.Hint="Enter Username"
         Style="{StaticResource MaterialDesignFloatingHintTextBox}" HorizontalAlignment="Right" Margin="0,158,21,0" VerticalAlignment="Top" Width="235"/>
+        
     </Grid>
 </Window>

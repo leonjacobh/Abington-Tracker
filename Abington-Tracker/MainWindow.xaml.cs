@@ -22,9 +22,18 @@ namespace Abington_Tracker
     /// </summary>
     public partial class MainWindow : Window
     {
+        List<String> userPass = new List<String>();
+        public String userPassRead;
+
         public MainWindow()
         {
             InitializeComponent();
+            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\user_pass.txt");
+            while ((userPassRead = file.ReadLine()) != null)
+            {
+                userPass.Add(userPassRead);
+            }
+            
         }
 
         /*
@@ -37,50 +46,31 @@ namespace Abington_Tracker
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-            SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Leon\source\repos\AbingtonTrackv2\AbingtonTrackv2\DBs\loginData.mdf;Integrated Security=True;Connect Timeout=30");
-            string query = "Select * from [Table] Where username= '" + username.Text + "' and password= '" + password.Password.ToString() + "'";
-            SqlDataAdapter sda = new SqlDataAdapter(query, sqlcon);
-            DataTable dtb1 = new DataTable();
-            sda.Fill(dtb1);
-            String currentName = username.Text;
 
-            if (dtb1.Rows.Count == 1)
+            if (userPass.Contains(username.Text + "," + password.Password.ToString()))
             {
-                //Form2 f2 = new Form2(username.Text);
-                //this.Hide();
-                //f2.Show();
-                MessageBox.Show("Lmao you suck penis", "america");
-
+                Window1 mainPage = new Window1();
+                mainPage.Show();
+                this.Close();
             }
 
             else
             {
-                MessageBox.Show("Incorrect Username and/or Password");
+                MessageBox.Show("Incorrect Username and/or Password", "Login Error");
             }
-            
+
+
         }
 
         private void Password_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                SqlConnection sqlcon = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Leon\source\repos\AbingtonTrackv2\AbingtonTrackv2\DBs\loginData.mdf;Integrated Security=True;Connect Timeout=30");
-                string query = "Select * from [Table] Where username= '" + username.Text + "' and password= '" + password.Password.ToString() + "'";
-                SqlDataAdapter sda = new SqlDataAdapter(query, sqlcon);
-                DataTable dtb1 = new DataTable();
-                sda.Fill(dtb1);
-                String currentName = username.Text;
-
-                if (dtb1.Rows.Count == 1)
+                if (userPass.Contains(username.Text + "," + password.Password.ToString()))
                 {
-                    //Form2 f2 = new Form2(username.Text);
-                    //this.Hide();
-                    //f2.Show();
                     Window1 mainPage = new Window1();
                     mainPage.Show();
                     this.Close();
-
                 }
 
                 else
@@ -88,6 +78,13 @@ namespace Abington_Tracker
                     MessageBox.Show("Incorrect Username and/or Password", "Login Error");
                 }
             }
+        }
+
+        private void Devmode_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 mainPage = new Window1();
+            mainPage.Show();
+            this.Close();
         }
 
         

@@ -8,27 +8,32 @@
         xmlns:local="clr-namespace:Abington_Tracker"
         mc:Ignorable="d"
         Title="Student Service Tracker" Height="450" Width="800">
-    <Grid>
+    <Grid GotMouseCapture="Grid_GotMouseCapture">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="71*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <dragablz:TabablzControl RenderTransformOrigin="0.503,0.442" Grid.ColumnSpan="2" materialDesign:ShadowAssist.ShadowDepth="Depth3">
+        <dragablz:TabablzControl RenderTransformOrigin="0.503,0.442" Grid.ColumnSpan="2" materialDesign:ShadowAssist.ShadowDepth="Depth4">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController />
             </dragablz:TabablzControl.InterTabController>
             <TabItem Header="Edit Student Hours">
                 <Grid>
+                    <!-- First Page -->
                     <TextBlock Name="studentPrompt" Style="{StaticResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="10,10,21,0" VerticalAlignment="Top">
                     Seach For Your Desired Student:
                     </TextBlock>
-                    <TextBox materialDesign:HintAssist.Hint="Search For A Student"
+                    <TextBox 
+                        x:Name="hourSeachStudent"
+                        materialDesign:HintAssist.Hint="Search For A Student"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                         HorizontalAlignment="Left" 
                         VerticalAlignment="Top" 
                         Margin="10,40,21,0" 
                         Width="120"/>
                     <Button
+                        x:Name="hourSearch"
+                        Click="HourSearch_Click"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="75"
                         Height="33"
@@ -40,6 +45,7 @@
                             _Search
                     </Button>
                     <ComboBox
+                        x:Name="hourSearchReq"
                         materialDesign:HintAssist.Hint="Search Req."
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,37,21,0">
@@ -58,15 +64,141 @@
                     
                     Add Service Hours
                     </TextBlock>
+                    <TextBox
+                        x:Name="hoursToAdd"
+                        materialDesign:HintAssist.Hint="Enter Hours (Must Be A Number)"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="10,115,21,0"
+                        Width="175"
+                        />
+                    <Button
+                        x:Name="addHoursButton"
+                        Click="AddHoursButton_Click"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="75"
+                        Height="33"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="200,118,21,0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
+                        _Add
+                    </Button>
+                    <GroupBox
+                        Header="Student Informaiton"
+                        Style="{DynamicResource MaterialDesignCardGroupBox}"
+                        Margin="16"
+                        HorizontalAlignment="Right"
+                        Width="350"
+                        >
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <StackPanel
+                                Orientation="Horizontal">
+                                    <materialDesign:PackIcon
+                                        Kind="ImageArea"
+                                        Height="32"
+                                        Width="32"
+                                        VerticalAlignment="Center" />
+                                    <TextBlock
+                                        Margin="8,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                                        Text="Student Information" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <TextBlock Text="Hello"/>
+                    </GroupBox>
+
+                </Grid>
+                <!-- End First Page -->
+            </TabItem>
+            <!-- Second Page -->
+            <TabItem Header="Edit Student Awards">
+                <Grid>
+                    
+                    <TextBlock Name="awardPrompt" Style="{StaticResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="10,10,21,0" VerticalAlignment="Top">
+                    Seach For Your Desired Student:
+                    </TextBlock>
+                    <TextBox materialDesign:HintAssist.Hint="Search For A Student"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="10,40,21,0" 
+                        Width="120"/>
+                    <Button
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="75"
+                        Height="33"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="225,45,21,0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
+                        _Search
+                    </Button>
+                    <ComboBox
+                        materialDesign:HintAssist.Hint="Search Req."
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,37,21,0">
+
+                        <ComboBoxItem>
+                            Student ID
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Full Name
+                        </ComboBoxItem>
+                    </ComboBox>
                 </Grid>
             </TabItem>
-            <TabItem Header="Edit Student Awards">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Material Design</TextBlock>
-            </TabItem>
-            <TabItem Header="Export Student Data">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
-            </TabItem>
+            <!-- End Second Page-->
             <TabItem Header="Create / Update Student Information">
+                <Grid>
+                    <Button
+                        x:Name="updateObjs"
+                        Click="UpdateObjs_Click"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="300"
+                        ToolTip="Resource name: MaterialDesignRaisedButton"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center" Margin="0,-150,250,0" 
+                        >
+                        _Update Current Student Profile
+                    </Button>
+                    <!-- Place Any UPDATE OBJECTS Here-->
+                    
+                    <!-- End of UPDATE OBJECTS-->
+                    <Button
+                        x:Name="createObjs"
+                        Click="CreateObjs_Click"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="300"
+                        ToolTip="Resource name: MaterialDesignRaisedButton"
+                        HorizontalAlignment="Right" Margin="0,50,250,0"
+
+                        >
+                        _Create A New Student Profile
+                    </Button>
+                    <Button
+                        x:Name="resetObjs"
+                        Click="ResetObjs_Click"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="125"
+                        ToolTip="Resource name: MaterialDesignRaisedButton"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom" Margin="0,0,10,10"
+                        >
+                        _Reset Window
+                    </Button>
+                </Grid>
+            </TabItem>
+            <!--<TabItem Header="Update Monthly Activities">
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
+            </TabItem>-->
+            <TabItem Header="Export Student Data">
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
             </TabItem>
         </dragablz:TabablzControl>
