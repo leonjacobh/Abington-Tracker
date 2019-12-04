@@ -127,19 +127,18 @@ namespace Abington_Tracker
         
         private void HourSearch_Click(object sender, RoutedEventArgs e)
         {
-            Object curSelection = hourSearchReq.SelectedValue.ToString();
-            //curSelection = curSelection.Trim();
             currentStudentName = hourSeachStudent.Text;
-            Console.WriteLine("We Hit Here1");
-            if (curSelection.Equals("Full Name"))
+            Console.WriteLine("We Hit Here 1");
+            if (hourSearchReq.Text.Equals("Full Name"))
             {
                 foreach (String x in nameUser)
                 {
-                    Console.WriteLine("We Hit Here2");
+                    Console.WriteLine("We Hit Here 2");
                     if (x.Contains(currentStudentName))
                     {
-                        Console.WriteLine("We Hit Here3");
+                        Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
+                        Console.WriteLine(currentStudentUser);
                     }
                 }
             }
