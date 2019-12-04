@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Abington_Tracker"
         mc:Ignorable="d"
-        Title="Student Service Tracker" Height="450" Width="800">
+        Title="Student Service Tracker" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid GotMouseCapture="Grid_GotMouseCapture">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="71*"/>

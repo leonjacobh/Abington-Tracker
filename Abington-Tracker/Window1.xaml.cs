@@ -140,18 +140,49 @@ namespace Abington_Tracker
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
                         Console.WriteLine(currentStudentUser);
                     }
+                    else
+                    {
+                        MessageBox.Show("Error: This Student Profile Does Not Exist", "User Entry Error");
+                    }
                 }
+            }
+            else if (hourSearchReq.Text.Equals("Student ID"))
+            {
+                currentStudentUser = hourSeachStudent.Text;
             }
             else
             {
-                currentStudentUser = hourSeachStudent.Text;
+                MessageBox.Show("Please Select Search Type (Student ID or Full Name)", "User Entry Error");
             }
         }
 
         private void AddHoursButton_Click(object sender, RoutedEventArgs e)
         {
             int numAdd = Int32.Parse(hoursToAdd.Text);
+            int added = 0;
             Console.WriteLine(numAdd);
+            /* The code below will work theoretically, but this doesnt let you go though it because apparently c#
+             * likes to crash if u edit the list youre working on
+             * do this method with traditional for loop, or static ints u grab before the loop ie. i = 0; i < len; i++  but len would equal userHours.size()
+             * get this done, and the rewrites done in daubs class
+             */
+
+            /*
+            foreach (String x in userHours)
+            {
+                if (x.Contains(currentStudentUser))
+                {
+                    String xHours = x.Substring(x.IndexOf(",") + 1);
+                    int xHoursInt = Int32.Parse(xHours);
+                    added = xHoursInt + numAdd;
+                    int pos = userHours.IndexOf(x);
+                    userHours.Add(currentStudentUser + added);
+                    Console.WriteLine(xHours + ":" + userHours[pos]);
+                    
+                }
+            }
+            */
+
         }
     }
 }
