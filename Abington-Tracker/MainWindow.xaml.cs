@@ -28,12 +28,14 @@ namespace Abington_Tracker
         public MainWindow()
         {
             InitializeComponent();
-            System.IO.StreamReader file = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\user_pass.txt");
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string extension = ".txt";
+            String userPassFile = filePath + @"\sTracker\Directories\user_pass" + extension;
+            System.IO.StreamReader file = new System.IO.StreamReader(userPassFile);
             while ((userPassRead = file.ReadLine()) != null)
             {
                 userPass.Add(userPassRead);
             }
-            
         }
 
         /*

@@ -48,48 +48,63 @@ namespace Abington_Tracker
         public String currentStudentName;
         public String currentStudentUser;
 
+        public String userGradePath;
+        public String userHoursPath;
+        public String userAwardsPath;
+        public String userHourUpdatePath;
+        public String userAwardsUpdatePath;
 
+        //Populates all lists with respective data
         public Window1()
         {
             InitializeComponent();
 
+            string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            string extension = ".txt";
+            String nameUserFile = filePath + @"\sTracker\Directories\name_user" + extension;
+            userGradePath = filePath + @"\sTracker\Directories\user_grade" + extension;
+            userHoursPath = filePath + @"\sTracker\Directories\user_hours" + extension;
+            userAwardsPath = filePath + @"\sTracker\Directories\user_award1_award2_award3" + extension;
+            userHourUpdatePath = filePath + @"\sTracker\Directories\user_hour_lastupdate" + extension; 
+            userAwardsUpdatePath = filePath + @"\sTracker\Directories\user_award_lastupdate" + extension;
+
             //import which names equal which usernames
-            System.IO.StreamReader nameText = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\name_user.txt");
+            System.IO.StreamReader nameText = new System.IO.StreamReader(nameUserFile);
             while ((nameUserRead = nameText.ReadLine()) != null)
             {
                 nameUser.Add(nameUserRead);
             }
 
             //import user and grade
-            System.IO.StreamReader userGradeText = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\user_grade.txt");
+            System.IO.StreamReader userGradeText = new System.IO.StreamReader(userGradePath);
             while ((userGradeRead = userGradeText.ReadLine()) != null)
             {
                 userGrade.Add(userGradeRead);
             }
 
             //import user and hours
-            System.IO.StreamReader userHoursText = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\user_hours.txt");
+            System.IO.StreamReader userHoursText = new System.IO.StreamReader(userHoursPath);
             while ((userHoursRead = userHoursText.ReadLine()) != null)
             {
                 userHours.Add(userHoursRead);
             }
 
             //import user and awards
-            System.IO.StreamReader userAwardsText = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\user_award1_award2_award3.txt");
+            System.IO.StreamReader userAwardsText = new System.IO.StreamReader(userAwardsPath);
             while ((userAwardsRead = userAwardsText.ReadLine()) != null)
             {
                 userAwards.Add(userAwardsRead);
             }
 
             //import user and last time the awards were updated
-            System.IO.StreamReader hourUpdateText = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\user_hour_lastupdate.txt");
+            System.IO.StreamReader hourUpdateText = new System.IO.StreamReader(userHourUpdatePath);
             while ((hourUpdatesRead = hourUpdateText.ReadLine()) != null)
             {
                 hourUpdates.Add(hourUpdatesRead);
             }
 
             //import user and last time the hours were updated
-            System.IO.StreamReader awardUpdateText = new System.IO.StreamReader(@"C:\Users\Leon\Desktop\sTracker\Directories\user_award_lastupdate.txt");
+            System.IO.StreamReader awardUpdateText = new System.IO.StreamReader(userAwardsUpdatePath);
             while ((awardUpdatesRead = awardUpdateText.ReadLine()) != null)
             {
                 awardUpdates.Add(awardUpdatesRead);
@@ -124,17 +139,21 @@ namespace Abington_Tracker
             // I know this works now random.Visibility = Visibility.Collapsed;
         }
 
-        
+        /* Searches For the user
+         * If given a name, converts to user numeral id
+         */
+
+        //Ask Daub if I should just remove options all together
+         
         private void HourSearch_Click(object sender, RoutedEventArgs e)
         {
-            currentStudentName = hourSeachStudent.Text;
             Console.WriteLine("We Hit Here 1");
-            if (hourSearchReq.Text.Equals("Full Name"))
+            if (hourSearchReq.Text.Equals("Full Name") || hourSearchReq.Text.Equals("Student ID"))
             {
                 foreach (String x in nameUser)
                 {
                     Console.WriteLine("We Hit Here 2");
-                    if (x.Contains(currentStudentName))
+                    if (x.Contains(hourSeachStudent.Text))
                     {
                         Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
@@ -145,10 +164,6 @@ namespace Abington_Tracker
                         MessageBox.Show("Error: This Student Profile Does Not Exist", "User Entry Error");
                     }
                 }
-            }
-            else if (hourSearchReq.Text.Equals("Student ID"))
-            {
-                currentStudentUser = hourSeachStudent.Text;
             }
             else
             {
@@ -166,22 +181,24 @@ namespace Abington_Tracker
              * do this method with traditional for loop, or static ints u grab before the loop ie. i = 0; i < len; i++  but len would equal userHours.size()
              * get this done, and the rewrites done in daubs class
              */
-
-            /*
-            foreach (String x in userHours)
+            Console.WriteLine("before loop");
+            for (int i = 0; i < userHours.Count; i++)
             {
-                if (x.Contains(currentStudentUser))
+                Console.WriteLine("loop started");
+                if (userHours[i].Contains(currentStudentUser))
                 {
-                    String xHours = x.Substring(x.IndexOf(",") + 1);
-                    int xHoursInt = Int32.Parse(xHours);
-                    added = xHoursInt + numAdd;
-                    int pos = userHours.IndexOf(x);
-                    userHours.Add(currentStudentUser + added);
-                    Console.WriteLine(xHours + ":" + userHours[pos]);
-                    
+                    Console.WriteLine("if hit");
+                    String curHours = userHours[i].Substring(userHours[i].IndexOf(",") + 1);
+                    int curHrs = Int32.Parse(curHours);
+                    added = numAdd + curHrs;
+                    userHours[i] = currentStudentUser + "," + added;
+                    Console.WriteLine(userHours[i]);
+                    System.IO.StreamWriter sw = new System.IO.StreamWriter(userHoursPath);
+                    sw.WriteLine(userHours[i]);
+                    sw.Close();
                 }
             }
-            */
+            
 
         }
     }
