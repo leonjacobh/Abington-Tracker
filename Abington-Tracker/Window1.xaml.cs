@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -118,30 +119,8 @@ namespace Abington_Tracker
          * Console.WriteLine(datePicked.SelectedDate.Value.Date.ToShortDateString());
         */
 
-        private void UpdateObjs_Click(object sender, RoutedEventArgs e)
-        {
-            createObjs.Visibility = Visibility.Collapsed;
-            //random.Visibility = Visibility.Visible;
-        }
-
-        //DatePicker.SelectedDate.Value.Date.ToShortDateString()
-        private void CreateObjs_Click(object sender, RoutedEventArgs e)
-        {
-            updateObjs.Visibility = Visibility.Collapsed;
-        }
-
-        private void ResetObjs_Click(object sender, RoutedEventArgs e)
-        {
-            createObjs.Visibility = Visibility.Visible;
-            updateObjs.Visibility = Visibility.Visible;
-        }
-
-        private void Grid_GotMouseCapture(object sender, MouseEventArgs e)
-        {
-            // I know this works now random.Visibility = Visibility.Collapsed;
-        }
-
-        /* Searches For the user
+        /* 
+         * Searches For the user
          * If given a name, converts to user numeral id
          */
 
@@ -160,10 +139,7 @@ namespace Abington_Tracker
                         Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
                         Console.WriteLine(currentStudentUser);
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error: This Student Profile Does Not Exist", "User Entry Error");
+                        DisplayStudentData(currentStudentUser);
                     }
                 }
             }
@@ -175,26 +151,43 @@ namespace Abington_Tracker
 
         private void AddHoursButton_Click(object sender, RoutedEventArgs e)
         {
-            int numAdd = Int32.Parse(hoursToAdd.Text);
-            int added = 0;
-            Console.WriteLine(numAdd);
-            Console.WriteLine("before loop");
-            for (int i = 0; i < userHours.Count; i++)
+            if (hoursToAdd.Text.Length > 0 && hoursToAdd.Text.IndexOfAny("abcdefghijklmnopqrstuvwxyz".ToCharArray()) == -1)
             {
-                Console.WriteLine("loop started");
-                if (userHours[i].Contains(currentStudentUser))
+                int numAdd = Int32.Parse(hoursToAdd.Text);
+                int added = 0;
+                Console.WriteLine(numAdd);
+                Console.WriteLine("before loop");
+                for (int i = 0; i < userHours.Count; i++)
                 {
-                    Console.WriteLine("if hit");
-                    String curHours = userHours[i].Substring(userHours[i].IndexOf(",") + 1);
-                    int curHrs = Int32.Parse(curHours);
-                    added = numAdd + curHrs;
-                    userHours[i] = currentStudentUser + "," + added;
-                    Console.WriteLine(userHours[i]);
-                    helper.userDataUpdater(userHours, userHoursPath);
+                    Console.WriteLine("loop started");
+                    if (currentStudentUser != null)
+                    {
+                        if (userHours[i].Contains(currentStudentUser))
+                        {
+                            Console.WriteLine("if hit");
+                            String curHours = userHours[i].Substring(userHours[i].IndexOf(",") + 1);
+                            int curHrs = Int32.Parse(curHours);
+                            added = numAdd + curHrs;
+                            userHours[i] = currentStudentUser + "," + added;
+                            Console.WriteLine(userHours[i]);
+                            helper.userDataUpdater(userHours, userHoursPath);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("You Must First Search For A Student Which You'd Like To Add Hours To", "User Error Entry");
+                    }
                 }
             }
-            
+            else
+            {
+                MessageBox.Show("Please Enter A Numeric Quntity", "User Error Entry");
+            }
+        }
 
+        private void DisplayStudentData(String userID)
+        {
+            studentFullNameDisplay.Text = "poopy";
         }
     }
 }

@@ -14,6 +14,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         Title="Student Service Tracker" Height="400" Width="300" ResizeMode="NoResize">
     <Grid>
+        
         <!--<Grid Height="20" VerticalAlignment="Top">
             <materialDesign:PackIcon Kind="CloseCircleOutline" Width="93" Margin="235,4,-28,0"/>
         </Grid>-->
