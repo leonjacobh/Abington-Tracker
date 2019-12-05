@@ -140,7 +140,7 @@ namespace Abington_Tracker
                         Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
                         Console.WriteLine(currentStudentUser);
-                        DisplayStudentData(currentStudentUser);
+                        DisplayStudentData();
 
                         ((Storyboard)FindResource("animate")).Begin(userFound);
                     }
@@ -190,9 +190,19 @@ namespace Abington_Tracker
             }
         }
 
-        private void DisplayStudentData(String userID)
+        private void DisplayStudentData()
         {
-            studentFullNameDisplay.Text = "poopy";
+            helper.hasCommunityAward(userAwards, currentStudentUser);
+            helper.hasServiceAward(userAwards,currentStudentUser);
+            helper.hasAchievementAward(userAwards,currentStudentUser);
+            
+            studentFullNameDisplay.Text = "Student's Full Name: " + helper.userToName(nameUser, currentStudentUser);
+            studentUserIDDisplay.Text = "Student's User ID: " + currentStudentUser;
+            studentHoursDisplay.Text = "Student's Current Hours: ";
+            studentGradeDisplay.Text = "Student's Current Grade: " + helper.getUserGrade(userGrade, currentStudentUser);
+            studentAward1Display.Text = "Student's CSA Community Status: " + helper.hasCommunityAward(userAwards, currentStudentUser);
+            studentAward2Display.Text = "Student's CSA Service Status: " + helper.hasServiceAward(userAwards, currentStudentUser);
+            studentAward3Display.Text = "Student's CSA Achievement Status: " + helper.hasAchievementAward(userAwards, currentStudentUser);
         }
     }
 }

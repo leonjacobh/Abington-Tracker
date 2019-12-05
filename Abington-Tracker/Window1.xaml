@@ -126,7 +126,9 @@
                     <TextBlock x:Name="studentUserIDDisplay" Text="IDy" Margin="440,120,0,0"/>
                     <TextBlock x:Name="studentHoursDisplay" Text="HOURy" Margin="440,160,0,0"/>
                     <TextBlock x:Name="studentGradeDisplay" Text="GRADEy" Margin="440,200,0,0"/>
-                    <TextBlock x:Name="studentAwardsDisplay" Text="AWARDy" Margin="440,240,0,0"/>
+                    <TextBlock x:Name="studentAward1Display" Text="AWARDy" Margin="440,240,0,0"/>
+                    <TextBlock x:Name="studentAward2Display" Text="AWARDy" Margin="440,280,0,0"/>
+                    <TextBlock x:Name="studentAward3Display" Text="AWARDy" Margin="440,320,0,0"/>
                     <materialDesign:Card
                         x:Name="userFound"
                         Visibility="Hidden"
