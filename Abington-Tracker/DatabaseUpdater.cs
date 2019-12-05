@@ -17,6 +17,14 @@ namespace Abington_Tracker
 {
     class DatabaseUpdater
     {
-
+        public void userDataUpdater(List<String> toAdd, String filePath)
+        {
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
+            foreach (String str in toAdd)
+            {
+                sw.WriteLine(str);
+            }
+            sw.Close();
+        }
     }
 }

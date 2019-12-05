@@ -54,6 +54,8 @@ namespace Abington_Tracker
         public String userHourUpdatePath;
         public String userAwardsUpdatePath;
 
+        DatabaseUpdater helper = new DatabaseUpdater();
+
         //Populates all lists with respective data
         public Window1()
         {
@@ -176,11 +178,6 @@ namespace Abington_Tracker
             int numAdd = Int32.Parse(hoursToAdd.Text);
             int added = 0;
             Console.WriteLine(numAdd);
-            /* The code below will work theoretically, but this doesnt let you go though it because apparently c#
-             * likes to crash if u edit the list youre working on
-             * do this method with traditional for loop, or static ints u grab before the loop ie. i = 0; i < len; i++  but len would equal userHours.size()
-             * get this done, and the rewrites done in daubs class
-             */
             Console.WriteLine("before loop");
             for (int i = 0; i < userHours.Count; i++)
             {
@@ -193,9 +190,7 @@ namespace Abington_Tracker
                     added = numAdd + curHrs;
                     userHours[i] = currentStudentUser + "," + added;
                     Console.WriteLine(userHours[i]);
-                    System.IO.StreamWriter sw = new System.IO.StreamWriter(userHoursPath);
-                    sw.WriteLine(userHours[i]);
-                    sw.Close();
+                    helper.userDataUpdater(userHours, userHoursPath);
                 }
             }
             
