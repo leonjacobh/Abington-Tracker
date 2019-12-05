@@ -60,6 +60,7 @@ namespace Abington_Tracker
         //Populates all lists with respective data
         public Window1()
         {
+            DataContext = new MainWindowViewModel();
             InitializeComponent();
 
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
@@ -140,6 +141,8 @@ namespace Abington_Tracker
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
                         Console.WriteLine(currentStudentUser);
                         DisplayStudentData(currentStudentUser);
+
+                        ((Storyboard)FindResource("animate")).Begin(userFound);
                     }
                 }
             }
@@ -147,7 +150,6 @@ namespace Abington_Tracker
             {
                 MessageBox.Show("Please Select Search Type (Student ID or Full Name)", "User Entry Error");
             }
-            ((Storyboard)FindResource("animate")).Begin(userFound);
             
         }
 
@@ -173,6 +175,7 @@ namespace Abington_Tracker
                             userHours[i] = currentStudentUser + "," + added;
                             Console.WriteLine(userHours[i]);
                             helper.userDataUpdater(userHours, userHoursPath);
+                            ((Storyboard)FindResource("animate")).Begin(hoursAdded);
                         }
                     }
                     else

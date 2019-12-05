@@ -42,16 +42,7 @@
                         Margin="225,45,21,0"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                         ToolTip="Resource name: MaterialDesignRaisedButton" Content="Search">
-                        <Button.Triggers>
-                            <EventTrigger RoutedEvent="Button.Click">
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation BeginTime="0:0:0.0" Storyboard.TargetName="userFound" Storyboard.TargetProperty="(materialDesign:Card.Opacity)" From="0" To="1" Duration="0:0:0.5"/> 
-                                        <DoubleAnimation BeginTime="0:0:1.5" Storyboard.TargetName="userFound" Storyboard.TargetProperty="(materialDesign:Card.Opacity)" From="1" To="0" Duration="0:0:0.5"/> 
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </EventTrigger>
-                        </Button.Triggers>
+                        
                     </Button>
                     
                     <ComboBox
@@ -181,6 +172,14 @@
                         Style="{StaticResource MaterialDesignBody2TextBlock}">
                         Select Award
                     </TextBlock>
+                    <!--<ListBox ItemsSource="{Binding Items}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:ItemViewModel}">
+                                <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Title}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>-->
+
                 </Grid>
                 <!-- End First Page -->
             </TabItem>
