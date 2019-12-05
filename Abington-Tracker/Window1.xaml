@@ -41,9 +41,19 @@
                         VerticalAlignment="Top"
                         Margin="225,45,21,0"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                        ToolTip="Resource name: MaterialDesignRaisedButton">
-                            _Search
+                        ToolTip="Resource name: MaterialDesignRaisedButton" Content="Search">
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation BeginTime="0:0:0.0" Storyboard.TargetName="userFound" Storyboard.TargetProperty="(materialDesign:Card.Opacity)" From="0" To="1" Duration="0:0:0.5"/> 
+                                        <DoubleAnimation BeginTime="0:0:1.5" Storyboard.TargetName="userFound" Storyboard.TargetProperty="(materialDesign:Card.Opacity)" From="1" To="0" Duration="0:0:0.5"/> 
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
                     </Button>
+                    
                     <ComboBox
                         x:Name="hourSearchReq"
                         materialDesign:HintAssist.Hint="Search Req."
@@ -85,6 +95,16 @@
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                         ToolTip="Resource name: MaterialDesignRaisedButton">
                         _Add
+                        <Button.Triggers>
+                            <EventTrigger RoutedEvent="Button.Click">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation BeginTime="0:0:0.0" Storyboard.TargetName="hoursAdded" Storyboard.TargetProperty="(materialDesign:Card.Opacity)" From="0" To="1" Duration="0:0:0.5"/>
+                                        <DoubleAnimation BeginTime="0:0:1.5" Storyboard.TargetName="hoursAdded" Storyboard.TargetProperty="(materialDesign:Card.Opacity)" From="1" To="0" Duration="0:0:0.5"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Button.Triggers>
                     </Button>
                     <GroupBox
                         Header="Student Informaiton"
@@ -140,6 +160,7 @@
                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                         Width="90"
                         Padding="8"
+                        Visibility="Hidden"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                         UniformCornerRadius="6" Margin="-110,0,0,100">
                         <TextBlock
