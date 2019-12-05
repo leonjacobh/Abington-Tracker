@@ -147,6 +147,8 @@ namespace Abington_Tracker
             {
                 MessageBox.Show("Please Select Search Type (Student ID or Full Name)", "User Entry Error");
             }
+            ((Storyboard)FindResource("animate")).Begin(userFound);
+            
         }
 
         private void AddHoursButton_Click(object sender, RoutedEventArgs e)

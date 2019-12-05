@@ -118,6 +118,7 @@
                     <TextBlock x:Name="studentAwardsDisplay" Text="AWARDy" Margin="440,240,0,0"/>
                     <materialDesign:Card
                         x:Name="userFound"
+                        Visibility="Hidden"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         Background="{DynamicResource PrimaryHueMidBrush}"
