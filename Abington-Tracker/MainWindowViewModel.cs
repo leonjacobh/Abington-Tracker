@@ -11,10 +11,11 @@ namespace Abington_Tracker
 
         public MainWindowViewModel()
         {
-            for (int i = 1; i < 20; i++)
-            {
-                Items.Add(new ItemViewModel($"Item {i}"));
-            }
+            
+                Items.Add(new ItemViewModel($"CSA Community Award (50+ Hours)"));
+                Items.Add(new ItemViewModel($"CSA Service Award (200+ Hours)"));
+                Items.Add(new ItemViewModel($"CSA Achievements Award (500+ Hours)"));
+
         }
     }
 }

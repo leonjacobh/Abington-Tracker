@@ -49,11 +49,16 @@ namespace Abington_Tracker
         public String currentStudentName;
         public String currentStudentUser;
 
+        public String nameUserPath;
         public String userGradePath;
         public String userHoursPath;
         public String userAwardsPath;
         public String userHourUpdatePath;
         public String userAwardsUpdatePath;
+
+        public String hasCommunity = "nnnnnnnnnn";
+        public String hasService = "nnnnnnnnnn";
+        public String hasAchievement = "nnnnnnnnnnnnnn";
 
         DatabaseUpdater helper = new DatabaseUpdater();
 
@@ -65,7 +70,7 @@ namespace Abington_Tracker
 
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string extension = ".txt";
-            String nameUserFile = filePath + @"\sTracker\Directories\name_user" + extension;
+            nameUserPath = filePath + @"\sTracker\Directories\name_user" + extension;
             userGradePath = filePath + @"\sTracker\Directories\user_grade" + extension;
             userHoursPath = filePath + @"\sTracker\Directories\user_hours" + extension;
             userAwardsPath = filePath + @"\sTracker\Directories\user_award1_award2_award3" + extension;
@@ -73,7 +78,7 @@ namespace Abington_Tracker
             userAwardsUpdatePath = filePath + @"\sTracker\Directories\user_award_lastupdate" + extension;
 
             //import which names equal which usernames
-            System.IO.StreamReader nameText = new System.IO.StreamReader(nameUserFile);
+            System.IO.StreamReader nameText = new System.IO.StreamReader(nameUserPath);
             while ((nameUserRead = nameText.ReadLine()) != null)
             {
                 nameUser.Add(nameUserRead);
@@ -135,7 +140,9 @@ namespace Abington_Tracker
                 foreach (String x in nameUser)
                 {
                     Console.WriteLine("We Hit Here 2");
-                    if (x.Contains(hourSeachStudent.Text))
+                    String xLower = x.ToLower();
+                    String grabLower = hourSeachStudent.Text.ToLower();
+                    if (x.Contains(hourSeachStudent.Text) || xLower.Contains(grabLower))
                     {
                         Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
@@ -148,7 +155,7 @@ namespace Abington_Tracker
             }
             else
             {
-                MessageBox.Show("Please Select Search Type (Student ID or Full Name)", "User Entry Error");
+                MessageBox.Show("Please select search type (Student ID or Full Name)", "User Entry Error");
             }
             
         }
@@ -175,18 +182,19 @@ namespace Abington_Tracker
                             userHours[i] = currentStudentUser + "," + added;
                             Console.WriteLine(userHours[i]);
                             helper.userDataUpdater(userHours, userHoursPath);
+                            DisplayStudentData();
                             ((Storyboard)FindResource("animate")).Begin(hoursAdded);
                         }
                     }
                     else
                     {
-                        MessageBox.Show("You Must First Search For A Student Which You'd Like To Add Hours To", "User Error Entry");
+                        MessageBox.Show("You must first search for a student which you'd like to add hours to.", "User Error Entry");
                     }
                 }
             }
             else
             {
-                MessageBox.Show("Please Enter A Numeric Quntity", "User Error Entry");
+                MessageBox.Show("Please enter a numeric quantity.", "User Error Entry");
             }
         }
 
@@ -198,11 +206,105 @@ namespace Abington_Tracker
             
             studentFullNameDisplay.Text = "Student's Full Name: " + helper.userToName(nameUser, currentStudentUser);
             studentUserIDDisplay.Text = "Student's User ID: " + currentStudentUser;
-            studentHoursDisplay.Text = "Student's Current Hours: ";
+            studentHoursDisplay.Text = "Student's Current Hours: " + helper.getUserHours(userHours, currentStudentUser);
             studentGradeDisplay.Text = "Student's Current Grade: " + helper.getUserGrade(userGrade, currentStudentUser);
-            studentAward1Display.Text = "Student's CSA Community Status: " + helper.hasCommunityAward(userAwards, currentStudentUser);
-            studentAward2Display.Text = "Student's CSA Service Status: " + helper.hasServiceAward(userAwards, currentStudentUser);
-            studentAward3Display.Text = "Student's CSA Achievement Status: " + helper.hasAchievementAward(userAwards, currentStudentUser);
+            studentAward1Display.Text = "CSA Community Status: " + helper.hasCommunityAward(userAwards, currentStudentUser);
+            studentAward2Display.Text = "CSA Service Status: " + helper.hasServiceAward(userAwards, currentStudentUser);
+            studentAward3Display.Text = "CSA Achievement Status: " + helper.hasAchievementAward(userAwards, currentStudentUser);
+        }
+
+        private void resetAwardStrings()
+        {
+            hasCommunity = "nnnnnnnnnn";
+            hasService = "nnnnnnnnnn";
+            hasAchievement = "nnnnnnnnnnnnnn";
+        }
+
+        private void setStringsn()
+        {
+            hasCommunity = "nnnnnnnnnn";
+            hasService = "nnnnnnnnnn";
+            hasAchievement = "nnnnnnnnnnnnnn";
+        }
+
+        private void CreateStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (createFirstName.Text.Length > 0 && createLastName.Text.Length > 0 && createUserID.Text.Length > 0 && createStudentGrade.SelectedIndex != -1) 
+            {
+                if (helper.originalUserID(nameUser, createUserID.Text))
+                {
+                    if (createHours.Text.IndexOfAny("abcdefghijklmnopqrstuvwxyz".ToCharArray()) == -1)
+                    {
+                        String fixedGrade = (String)createStudentGrade.SelectedValue.ToString();
+                        fixedGrade = fixedGrade.Substring(fixedGrade.IndexOf(":") + 2, fixedGrade.IndexOf("t") - 1);
+                        String namePlusUser = createFirstName.Text.Trim() + " " + createLastName.Text.Trim() + "," + createUserID.Text;
+                        String userPlusHours = createUserID.Text + "," + createHours.Text;
+                        String userPlusGrade = createUserID.Text + "," + fixedGrade;
+
+
+                        if (true)
+                        {
+                            hasCommunity = "nnnnnnnnnn";
+                            hasService = "nnnnnnnnnn";
+                            hasAchievement = "nnnnnnnnnnnnnn";
+                            if (createCommunityAward.IsChecked ?? false)
+                            {
+                                hasCommunity = "csacommunity";
+                            }
+                            if (createServiceAward.IsChecked ?? false)
+                            {
+                                hasService = "csaservice";
+                            }
+                            if (createAchievementAward.IsChecked ?? false)
+                            {
+                                hasAchievement = "csaachievement";
+                            }
+                        }
+
+                        String userPlusAwards = createUserID + "," + hasCommunity + "," + hasService + "," + hasAchievement;
+                        userPlusAwards = userPlusAwards.Substring(userPlusAwards.IndexOf(": ")+2);
+
+                        
+
+                        nameUser.Add(namePlusUser);
+                        helper.createNameUser(nameUser, namePlusUser, nameUserPath);
+                        userHours.Add(userPlusHours);
+                        helper.createUserHours(userHours, userPlusHours, userHoursPath);
+                        userGrade.Add(userPlusGrade);
+                        helper.createUserGrade(userGrade, userPlusGrade, userGradePath);
+                        userAwards.Add(userPlusAwards);
+                        helper.createUserAwards(userAwards, userPlusAwards, userAwardsPath);
+                        ((Storyboard)FindResource("animate")).Begin(createSuccessful);
+
+                        createAchievementAward.IsChecked = false;
+                        createServiceAward.IsChecked = false;
+                        createCommunityAward.IsChecked = false;
+
+
+                        createFirstName.Clear();
+                        createLastName.Clear();
+                        createUserID.Clear();
+                        createHours.Clear();
+                        createStudentGrade.SelectedIndex = -1;
+                        
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error: Hours Must Be Entered As A Numeric Quantity, Not Characters", "User Entry Error");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Error: Unique student user ID already exists. If this is a different person use a different ID. If this is the same person, try updating the student profile", "User Entry Error");
+                }
+                
+            }
+            else
+            {
+                MessageBox.Show("Error: Some field was left empty, or a letter was entered as a number.", "User Entry Error");
+            }
         }
     }
 }

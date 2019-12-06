@@ -36,31 +36,31 @@ namespace Abington_Tracker
                     return "CSA Community Has Been Acquired!";
                 }
             }
-            return "Not Quite - Student Needs More Hours";
+            return "Not Quite - Student Needs More Hours.";
         }
 
         public String hasServiceAward(List<String> awardDBS, String userID)
         {
             foreach (String x in awardDBS)
             {
-                if (x.Contains(userID) && x.Contains("csacommunity"))
+                if (x.Contains(userID) && x.Contains("csaservice"))
                 {
                     return "CSA Service Has Been Acquired!";
                 }
             }
-            return "Not Quite - Student Needs More Hours";
+            return "Not Quite - Student Needs More Hours.";
         }
 
         public String hasAchievementAward(List<String> awardDBS, String userID)
         {
             foreach (String x in awardDBS)
             {
-                if (x.Contains(userID) && x.Contains("csacommunity"))
+                if (x.Contains(userID) && x.Contains("csaachievement"))
                 {
                     return "CSA Achievement Has Been Acquired!";
                 }
             }
-            return "Not Quite - Student Needs More Hours";
+            return "Not Quite - Student Needs More Hours.";
         }
 
         public String getUserGrade(List<String> userGrades, String userID)
@@ -76,6 +76,18 @@ namespace Abington_Tracker
             return "Error Grabbing User Grade - Doesn't Exist";
         }
 
+        public String getUserHours(List<String> userHours, String userID)
+        {
+            foreach (String x in userHours)
+            {
+                if (x.Contains(userID))
+                {
+                    return x.Substring(x.IndexOf(",") + 1);
+                }
+            }
+            return "Error Grabbing User Hours - Doesn't Exist";
+        }
+
         public String userToName(List<String> nameUsers, String userID)
         {
             foreach (String x in nameUsers)
@@ -88,5 +100,58 @@ namespace Abington_Tracker
             return "Error Grabbing Last Name - Doesnt Exist";
         }
 
+        public void createNameUser(List<String> nameAndUser, String newNameUser, String filePath)
+        {
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
+            foreach (String str in nameAndUser)
+            {
+                sw.WriteLine(str);
+            }
+            sw.Close();
+        }
+
+        public void createUserHours(List<String> userAndHours, String newUserHours, String filePath)
+        {
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
+            foreach (String str in userAndHours)
+            {
+                sw.WriteLine(str);
+            }
+            sw.Close();
+        }
+
+        public void createUserGrade(List<String> userAndGrade, String newUserGrade, String filePath)
+        {
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
+            foreach (String str in userAndGrade)
+            {
+                sw.WriteLine(str);
+            }
+            sw.Close();
+        }
+
+        public void createUserAwards(List<String> userAndAwards, String newUserAwards, String filePath)
+        {
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(filePath);
+            foreach (String str in userAndAwards)
+            {
+                sw.WriteLine(str);
+            }
+            sw.Close();
+        }
+
+        
+
+        public bool originalUserID(List<String> nameUsers, String newUserID)
+        {
+            foreach (String x in nameUsers)
+            {
+                if (x.Contains(newUserID))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

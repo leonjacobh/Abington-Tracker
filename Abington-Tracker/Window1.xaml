@@ -21,7 +21,7 @@
                 <Grid>
                     <!-- First Page -->
                     <TextBlock Name="studentPrompt" Style="{StaticResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="10,10,21,0" VerticalAlignment="Top">
-                    Seach For Your Desired Student:
+                    Search For Your Desired Student:
                     </TextBlock>
                     <TextBox 
                         x:Name="hourSeachStudent"
@@ -86,7 +86,7 @@
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
                         ToolTip="Resource name: MaterialDesignRaisedButton">
                         _Add
-                        <Button.Triggers>
+                        <!--<Button.Triggers>
                             <EventTrigger RoutedEvent="Button.Click">
                                 <BeginStoryboard>
                                     <Storyboard>
@@ -95,21 +95,21 @@
                                     </Storyboard>
                                 </BeginStoryboard>
                             </EventTrigger>
-                        </Button.Triggers>
+                        </Button.Triggers>-->
                     </Button>
                     <GroupBox
                         Header="Student Informaiton"
                         Style="{DynamicResource MaterialDesignCardGroupBox}"
                         Margin="16"
                         HorizontalAlignment="Right"
-                        Width="350"
+                        Width="370"
                         >
                         <GroupBox.HeaderTemplate>
                             <DataTemplate>
                                 <StackPanel
                                 Orientation="Horizontal">
                                     <materialDesign:PackIcon
-                                        Kind="ImageArea"
+                                        Kind="AccountTie"
                                         Height="32"
                                         Width="32"
                                         VerticalAlignment="Center" />
@@ -122,13 +122,13 @@
                             </DataTemplate>
                         </GroupBox.HeaderTemplate>
                     </GroupBox>
-                    <TextBlock x:Name="studentFullNameDisplay" Text="NAMEY" Margin="440,80,0,0"/>
-                    <TextBlock x:Name="studentUserIDDisplay" Text="IDy" Margin="440,120,0,0"/>
-                    <TextBlock x:Name="studentHoursDisplay" Text="HOURy" Margin="440,160,0,0"/>
-                    <TextBlock x:Name="studentGradeDisplay" Text="GRADEy" Margin="440,200,0,0"/>
-                    <TextBlock x:Name="studentAward1Display" Text="AWARDy" Margin="440,240,0,0"/>
-                    <TextBlock x:Name="studentAward2Display" Text="AWARDy" Margin="440,280,0,0"/>
-                    <TextBlock x:Name="studentAward3Display" Text="AWARDy" Margin="440,320,0,0"/>
+                    <TextBlock x:Name="studentFullNameDisplay" Text="Student's Full Name" Margin="400,80,0,0"/>
+                    <TextBlock x:Name="studentUserIDDisplay" Text="Student's User ID" Margin="400,120,0,0"/>
+                    <TextBlock x:Name="studentHoursDisplay" Text="Student's Current Hours" Margin="400,160,0,0"/>
+                    <TextBlock x:Name="studentGradeDisplay" Text="Student's Current Grade" Margin="400,200,0,0"/>
+                    <TextBlock x:Name="studentAward1Display" Text="CSA Community Status:" Margin="400,240,0,0"/>
+                    <TextBlock x:Name="studentAward2Display" Text="CSA Service Status:" Margin="400,280,0,0"/>
+                    <TextBlock x:Name="studentAward3Display" Text="CSA Achievement Status:" Margin="400,320,0,0"/>
                     <materialDesign:Card
                         x:Name="userFound"
                         Visibility="Hidden"
@@ -139,7 +139,7 @@
                         Width="81"
                         Padding="8"
                         materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                        UniformCornerRadius="6" Margin="-60,0,0,249">
+                        UniformCornerRadius="6" Margin="-85,0,0,249">
                         <TextBlock
                             TextWrapping="Wrap">
                             User Found!
@@ -188,7 +188,164 @@
             <!-- Second Page -->
             <TabItem Header="Create a New Student Profile">
                 <Grid>
-                    
+                    <TextBlock Name="createStudentPrompt" Style="{StaticResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="20,10,21,0" VerticalAlignment="Top">
+                    Create A New Student Profile:
+                    </TextBlock>
+                    <TextBox
+                        x:Name="createFirstName"
+                        materialDesign:HintAssist.Hint="Enter Student's First Name"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left"
+                        Width="200"
+                        VerticalAlignment="Top" Margin="20,40,0,0"
+                    />
+                    <TextBox
+                        x:Name="createLastName"
+                        materialDesign:HintAssist.Hint="Enter Student's Last Name"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left"
+                        Width="200"
+                        VerticalAlignment="Top" Margin="20,90,0,0"
+                    />
+                    <TextBox
+                        x:Name="createUserID"
+                        materialDesign:HintAssist.Hint="Enter Student's User ID"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left"
+                        Width="200"
+                        VerticalAlignment="Top" Margin="20,140,0,0"
+                    />
+                    <TextBox
+                        x:Name="createHours"
+                        materialDesign:HintAssist.Hint="Enter Student's Current Hours"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left"
+                        Width="200"
+                        VerticalAlignment="Top" Margin="20,190,0,0"
+                    />
+                    <ComboBox
+                        x:Name="createStudentGrade"
+                        materialDesign:HintAssist.Hint="Select Student's Current Grade"
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="20,240,0,0"
+                        ItemsSource="{Binding LongListToTestComboVirtualization}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBoxItem>
+                            9th - Frehsman
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            10th - Sophmore
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            11th - Junior
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            12th - Senior
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <!--<StackPanel
+                        Margin="8 0">
+                        <CheckBox
+                            IsChecked="True">
+                            Checked
+                        </CheckBox>
+                        <CheckBox
+                            IsChecked="False">
+                            Unchecked
+                        </CheckBox>
+                        <CheckBox
+                            IsChecked="{x:Null}">
+                            Indeterminate
+                        </CheckBox>
+                        <CheckBox
+                            IsChecked="True"
+                            IsEnabled="False">
+                            Disabled Checked
+                        </CheckBox>
+                        <CheckBox
+                            IsChecked="False"
+                            IsEnabled="False">
+                            Disabled Unchecked
+                        </CheckBox>
+                        <CheckBox
+                            IsChecked="{x:Null}"
+                            IsEnabled="False">
+                            Disabled Indeterminate
+                        </CheckBox>
+                    </StackPanel>-->
+                    <Button 
+                        Click="CreateStudentButton_Click"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        x:Name="createStudentButton"
+                        Margin="0,0,20,20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        Width="200"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
+                        _Create Student Profile
+                    </Button>
+                    <materialDesign:Card
+                        x:Name="createSuccessful"
+                        Visibility="Hidden"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Width="210"
+                        Padding="8"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        UniformCornerRadius="6" Margin="0,0,15,60">
+                        <TextBlock
+                            TextWrapping="Wrap">
+                            Student Profile Creation Successful!
+                        </TextBlock>
+                    </materialDesign:Card>
+                    <!--<ListBox ItemsSource="{Binding Items}" Width="275" Height="200" x:Name="createListBox">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate DataType="{x:Type local:ItemViewModel}">
+                                <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Title}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>-->
+                    <materialDesign:Card
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Margin="240,100,0,0"
+                        Width="250"
+                        Padding="8">
+                        <StackPanel>
+                            <TextBlock
+                                Margin="16 16 12 8"
+                                FontSize="16">
+                                Select Applicable Awards
+                            </TextBlock>
+                            <CheckBox
+                                x:Name="createCommunityAward"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Community (50+ hours)
+                            </CheckBox>
+                            <CheckBox
+                                x:Name="createServiceAward"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Service (200+ hours)
+                            </CheckBox>
+                            <CheckBox
+                                x:Name="createAchievementAward"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Achievement (500+ hours)
+                            </CheckBox>
+                            <Separator
+                                Style="{StaticResource MaterialDesignLightSeparator}" />
+                        </StackPanel>
+                    </materialDesign:Card>
                 </Grid>
             </TabItem>
             <!-- End Second Page-->
