@@ -556,7 +556,70 @@
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
             </TabItem>-->
             <TabItem Header="Export Student Data">
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Looks Quite Nice</TextBlock>
+                <Grid>
+                    <TextBlock  
+                        Style="{StaticResource MaterialDesignTitleTextBlock}" 
+                        HorizontalAlignment="Left" 
+                        Margin="10,10,21,0" 
+                        VerticalAlignment="Top">
+                     Export Student Data:
+                    </TextBlock>
+                    
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="10,40,0,0">
+                        Click below to export a file with all of the current students' data. 
+                    </TextBlock>
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="10,60,0,0">
+                        Data will be presented in the format
+                        Name: *Student's Name* || User ID: *Studen'ts Unique User ID* ||
+                    </TextBlock>
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="10,80,0,0">
+                        Grade: *Student's Current Grade* || Hours: *Student's Hours* || Awards: *Current Awards* 
+                    </TextBlock>
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="10,100,0,0">
+                        If the student has an award, it will be typed out, otherwise it will show a string of n's.
+                    </TextBlock>
+                    <Button
+                        x:Name="exportData"
+                        Click="ExportData_Click"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="200"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
+                        Export Student Data
+                    </Button>
+                    <materialDesign:Card
+                        x:Name="exportSuccess"
+                        Visibility="Hidden"
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Width="200"
+                        Padding="8"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        UniformCornerRadius="6" 
+                        Margin="0,250,0,0"
+                        >
+                        <TextBlock
+                            TextWrapping="Wrap">
+                            Export Completed Successfully!
+                        </TextBlock>
+                    </materialDesign:Card>
+                </Grid>
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>

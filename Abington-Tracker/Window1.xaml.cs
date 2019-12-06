@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 //Github working
 using System.Linq;
 using System.Text;
@@ -60,6 +61,7 @@ namespace Abington_Tracker
         public String hasService = "nnnnnnnnnn";
         public String hasAchievement = "nnnnnnnnnnnnnn";
 
+        public String desktopPath;
         public String previousUser;
 
         DatabaseUpdater helper = new DatabaseUpdater();
@@ -71,6 +73,7 @@ namespace Abington_Tracker
             InitializeComponent();
 
             string filePath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            desktopPath = filePath;
             string extension = ".txt";
             nameUserPath = filePath + @"\sTracker\Directories\name_user" + extension;
             userGradePath = filePath + @"\sTracker\Directories\user_grade" + extension;
@@ -564,6 +567,35 @@ namespace Abington_Tracker
             {
                 MessageBox.Show("Error: You must first search for a student before you can apply awards", "User Entry Error");
             }
+        }
+
+        private void ExportData_Click(object sender, RoutedEventArgs e)
+        {
+            //string fileName = @"C:\Temp\Mahesh.txt";
+            string desktop = desktopPath;
+            Console.WriteLine(desktop);
+            string fileName = desktop + @"\sTracker\Exported_Data.txt";
+            Console.WriteLine(fileName);
+            System.IO.StreamWriter sw = new System.IO.StreamWriter(fileName);
+            sw.WriteLine("#GUIDE# Name: Students Name || User ID: Students User ID || Grade: Students Grade || Hours: Students Hours || Awards: Students Awards");
+            sw.WriteLine("-------------------------------------------------------------------------------------------------------------------------------------");
+            for (int i = 0; i < nameUser.Count; i++)
+            {
+                String name = nameUser[i].Substring(0, nameUser[i].IndexOf(","));
+                String user = nameUser[i].Substring(nameUser[i].IndexOf(",")+1);
+                String grade = userGrade[i].Substring(userGrade[i].IndexOf(",")+1);
+                String hours = userHours[i].Substring(userHours[i].IndexOf(",") + 1);
+                String awards = userAwards[i].Substring(userAwards[i].IndexOf(",")+1);
+                if (grade.Contains("t"))
+                {
+                    grade = grade.Substring(0, grade.IndexOf("t"));
+                }
+                String finished = "Name: " + name + " || User ID: " + user + " || Grade: " + grade + " || Hours: " + hours + " || Awards: " + awards;
+                sw.WriteLine(finished);
+
+            }
+            ((Storyboard)FindResource("animate")).Begin(exportSuccess);
+            sw.Close();
         }
     }
 }
