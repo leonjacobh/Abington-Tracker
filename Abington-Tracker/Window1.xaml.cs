@@ -492,6 +492,8 @@ namespace Abington_Tracker
                     updateStudentsHours.Clear();
                     updateStudentGrade.SelectedIndex = -1;
 
+                    ((Storyboard)FindResource("animate")).Begin(updateSuccessful);
+
 
                 }
                     else
@@ -504,7 +506,7 @@ namespace Abington_Tracker
             {
                 MessageBox.Show("Error: No user was searched, or a field was left empty.", "User Entry Error");
             }
-            ((Storyboard)FindResource("animate")).Begin(updateSuccessful);
+            
         }
     }
 }
