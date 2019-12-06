@@ -39,14 +39,6 @@ namespace Abington_Tracker
         List<String> userAwards = new List<String>();
         public String userAwardsRead;
         
-        //last user hour updates list
-        List<String> hourUpdates = new List<String>();
-        public String hourUpdatesRead;
-
-        //last user award updates list
-        List<String> awardUpdates = new List<String>();
-        public String awardUpdatesRead;
-
         public String currentStudentName;
         public String currentStudentUser;
 
@@ -54,8 +46,6 @@ namespace Abington_Tracker
         public String userGradePath;
         public String userHoursPath;
         public String userAwardsPath;
-        public String userHourUpdatePath;
-        public String userAwardsUpdatePath;
 
         public String hasCommunity = "nnnnnnnnnn";
         public String hasService = "nnnnnnnnnn";
@@ -79,8 +69,6 @@ namespace Abington_Tracker
             userGradePath = filePath + @"\sTracker\Directories\user_grade" + extension;
             userHoursPath = filePath + @"\sTracker\Directories\user_hours" + extension;
             userAwardsPath = filePath + @"\sTracker\Directories\user_award1_award2_award3" + extension;
-            userHourUpdatePath = filePath + @"\sTracker\Directories\user_hour_lastupdate" + extension; 
-            userAwardsUpdatePath = filePath + @"\sTracker\Directories\user_award_lastupdate" + extension;
 
             //import which names equal which usernames
             System.IO.StreamReader nameText = new System.IO.StreamReader(nameUserPath);
@@ -109,47 +97,20 @@ namespace Abington_Tracker
             {
                 userAwards.Add(userAwardsRead);
             }
-
-            //import user and last time the awards were updated
-            System.IO.StreamReader hourUpdateText = new System.IO.StreamReader(userHourUpdatePath);
-            while ((hourUpdatesRead = hourUpdateText.ReadLine()) != null)
-            {
-                hourUpdates.Add(hourUpdatesRead);
-            }
-
-            //import user and last time the hours were updated
-            System.IO.StreamReader awardUpdateText = new System.IO.StreamReader(userAwardsUpdatePath);
-            while ((awardUpdatesRead = awardUpdateText.ReadLine()) != null)
-            {
-                awardUpdates.Add(awardUpdatesRead);
-            }
         }
 
-        /*
-         * Console.WriteLine(DateTime.Now.ToString("M/d/yyyy"));
-         * Console.WriteLine(datePicked.SelectedDate.Value.Date.ToShortDateString());
-        */
-
-        /* 
-         * Searches For the user
-         * If given a name, converts to user numeral id
-         */
-
-        //Ask Daub if I should just remove options all together
+    
          
         private void HourSearch_Click(object sender, RoutedEventArgs e)
         {
-            //Console.WriteLine("We Hit Here 1");
             if (hourSearchReq.Text.Equals("Full Name") || hourSearchReq.Text.Equals("Student ID"))
             {
                 foreach (String x in nameUser)
                 {
-                    //Console.WriteLine("We Hit Here 2");
                     String xLower = x.ToLower();
                     String grabLower = hourSeachStudent.Text.ToLower();
                     if (x.Contains(hourSeachStudent.Text) || xLower.Contains(grabLower))
                     {
-                        //Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
                         Console.WriteLine("Current Student User: " + currentStudentUser);
                         DisplayStudentData();
@@ -239,17 +200,14 @@ namespace Abington_Tracker
 
         private void UpdateSearch_Click(object sender, RoutedEventArgs e)
         {
-            //Console.WriteLine("We Hit Here 1");
             if (updateSearchReq.Text.Equals("Full Name") || updateSearchReq.Text.Equals("Student ID"))
             {
                 foreach (String x in nameUser)
                 {
-                    //Console.WriteLine("We Hit Here 2");
                     String xLower = x.ToLower();
                     String grabLower = updateSeachStudent.Text.ToLower();
                     if (x.Contains(updateSeachStudent.Text) || xLower.Contains(grabLower))
                     {
-                        //Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
                         Console.WriteLine("Current Student User: " + currentStudentUser);
                         loadCurrentData(currentStudentUser);
@@ -571,7 +529,6 @@ namespace Abington_Tracker
 
         private void ExportData_Click(object sender, RoutedEventArgs e)
         {
-            //string fileName = @"C:\Temp\Mahesh.txt";
             string desktop = desktopPath;
             Console.WriteLine(desktop);
             string fileName = desktop + @"\sTracker\Exported_Data.txt";
