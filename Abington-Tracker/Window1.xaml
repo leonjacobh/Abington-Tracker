@@ -7,7 +7,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Abington_Tracker"
         mc:Ignorable="d"
-        Title="Student Service Tracker" Height="450" Width="800" ResizeMode="CanMinimize">
+        Title="sTracker - Main Window" Height="450" Width="800" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="71*"/>
@@ -25,6 +25,7 @@
                     </TextBlock>
                     <TextBox 
                         x:Name="hourSeachStudent"
+                        KeyboardNavigation.TabIndex="1"
                         materialDesign:HintAssist.Hint="Search For A Student"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                         HorizontalAlignment="Left" 
@@ -32,6 +33,7 @@
                         Margin="10,40,21,0" 
                         Width="120"/>
                     <Button
+                        KeyboardNavigation.TabIndex="3"
                         x:Name="hourSearch"
                         Click="HourSearch_Click"
                         Style="{StaticResource MaterialDesignRaisedButton}"
@@ -47,6 +49,7 @@
                     
                     <ComboBox
                         x:Name="hourSearchReq"
+                        KeyboardNavigation.TabIndex="2"
                         materialDesign:HintAssist.Hint="Search Req."
                         Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Margin="140,37,21,0">
@@ -67,6 +70,7 @@
                     </TextBlock>
                     <TextBox
                         x:Name="hoursToAdd"
+                        KeyboardNavigation.TabIndex="4"
                         materialDesign:HintAssist.Hint="Enter Hours (Must Be A Number)"
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
                         HorizontalAlignment="Left"
@@ -76,6 +80,7 @@
                         />
                     <Button
                         x:Name="addHoursButton"
+                        KeyboardNavigation.TabIndex="5"
                         Click="AddHoursButton_Click"
                         Style="{StaticResource MaterialDesignRaisedButton}"
                         Width="75"
@@ -610,7 +615,7 @@
                         Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
                         Width="200"
                         Padding="8"
-                        materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
                         UniformCornerRadius="6" 
                         Margin="0,250,0,0"
                         >

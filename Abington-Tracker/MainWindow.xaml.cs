@@ -38,13 +38,6 @@ namespace Abington_Tracker
             }
         }
 
-        /*
-         * You're going to need this doofus
-         * check out
-         * materialDesign:TextFieldAssist.Hint="WORDS"
-         * 
-         * UPDATE: you did it like 5 mins later lol
-         */
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -53,7 +46,7 @@ namespace Abington_Tracker
             {
                 Window1 mainPage = new Window1();
                 mainPage.Show();
-                this.Close();
+                loginPage.Close();
             }
 
             else
@@ -72,7 +65,7 @@ namespace Abington_Tracker
                 {
                     Window1 mainPage = new Window1();
                     mainPage.Show();
-                    this.Close();
+                    loginPage.Close();
                 }
 
                 else
@@ -82,12 +75,7 @@ namespace Abington_Tracker
             }
         }
 
-        private void Devmode_Click(object sender, RoutedEventArgs e)
-        {
-            Window1 mainPage = new Window1();
-            mainPage.Show();
-            this.Close();
-        }
+        
 
         
     }
