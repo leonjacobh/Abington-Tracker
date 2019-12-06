@@ -168,19 +168,76 @@
                     
                     Add Service Awards
                     </TextBlock>
-                    <TextBlock
+
+                    <materialDesign:Card
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Width="200"
+                        Height="178"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top" Margin="10,185,21,0"
-                        Style="{StaticResource MaterialDesignBody2TextBlock}">
-                        Select Award
-                    </TextBlock>
-                    <!--<ListBox ItemsSource="{Binding Items}">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type local:ItemViewModel}">
-                                <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Title}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>-->
+                        VerticalAlignment="Top"
+                        Margin="10,187,0,0"
+                        Padding="8">
+                        <StackPanel>
+                            <TextBlock
+                                Margin="16 16 12 8"
+                                FontSize="16">
+                                Select Desired Awards
+                            </TextBlock>
+                            <CheckBox
+                                Margin="16 4 16 0"
+                                x:Name="applyCommunityBox"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Community Award
+                            </CheckBox>
+                            <CheckBox
+                                x:Name="applyServiceBox"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Service Award
+                            </CheckBox>
+                            <CheckBox
+                                x:Name="applyAchievementBox"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Achievement Award
+                            </CheckBox>
+                            <Separator
+                                Style="{StaticResource MaterialDesignLightSeparator}" />
+                            <StackPanel
+                                    Margin="8 0 8 8"
+                                    Orientation="Horizontal"
+                                    HorizontalAlignment="Right">
+                                <Button
+                                    x:Name="applyAwards"
+                                    Click="ApplyAwards_Click"
+                                    HorizontalAlignment="Right"
+                                    Style="{StaticResource MaterialDesignToolForegroundButton}"
+                                    Width="30"
+                                    Padding="2 0 0 0"
+                                    materialDesign:RippleAssist.IsCentered="True">
+                                    <materialDesign:PackIcon
+                                        Kind="CheckAll" />
+                                </Button>
+                            </StackPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card
+                        x:Name="awardsApplied"
+                        Visibility="Hidden"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Width="175"
+                        Padding="8"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        UniformCornerRadius="6" Margin="215,250,0,0">
+                        <TextBlock
+                            TextWrapping="Wrap">
+                            Student's Current Awards Changed!
+                        </TextBlock>
+                    </materialDesign:Card>
 
                 </Grid>
                 <!-- End First Page -->
@@ -492,6 +549,7 @@
                             Student Profile Update Successful!
                         </TextBlock>
                     </materialDesign:Card>
+                    
                 </Grid>
             </TabItem>
             <!--<TabItem Header="Update Monthly Activities">

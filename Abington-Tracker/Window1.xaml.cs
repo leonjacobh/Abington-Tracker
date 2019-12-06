@@ -136,19 +136,19 @@ namespace Abington_Tracker
          
         private void HourSearch_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("We Hit Here 1");
+            //Console.WriteLine("We Hit Here 1");
             if (hourSearchReq.Text.Equals("Full Name") || hourSearchReq.Text.Equals("Student ID"))
             {
                 foreach (String x in nameUser)
                 {
-                    Console.WriteLine("We Hit Here 2");
+                    //Console.WriteLine("We Hit Here 2");
                     String xLower = x.ToLower();
                     String grabLower = hourSeachStudent.Text.ToLower();
                     if (x.Contains(hourSeachStudent.Text) || xLower.Contains(grabLower))
                     {
-                        Console.WriteLine("We Hit Here 3");
+                        //Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
-                        Console.WriteLine(currentStudentUser);
+                        Console.WriteLine("Current Student User: " + currentStudentUser);
                         DisplayStudentData();
 
                         ((Storyboard)FindResource("animate")).Begin(userFound);
@@ -236,19 +236,19 @@ namespace Abington_Tracker
 
         private void UpdateSearch_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("We Hit Here 1");
+            //Console.WriteLine("We Hit Here 1");
             if (updateSearchReq.Text.Equals("Full Name") || updateSearchReq.Text.Equals("Student ID"))
             {
                 foreach (String x in nameUser)
                 {
-                    Console.WriteLine("We Hit Here 2");
+                    //Console.WriteLine("We Hit Here 2");
                     String xLower = x.ToLower();
                     String grabLower = updateSeachStudent.Text.ToLower();
                     if (x.Contains(updateSeachStudent.Text) || xLower.Contains(grabLower))
                     {
-                        Console.WriteLine("We Hit Here 3");
+                        //Console.WriteLine("We Hit Here 3");
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
-                        Console.WriteLine(currentStudentUser);
+                        Console.WriteLine("Current Student User: " + currentStudentUser);
                         loadCurrentData(currentStudentUser);
                         previousUser = currentStudentUser;
                         ((Storyboard)FindResource("animate")).Begin(updateUserFound);
@@ -304,6 +304,36 @@ namespace Abington_Tracker
 
         private void DisplayStudentData()
         {
+            foreach (String x in userAwards)
+            {
+                if (x.Contains(currentStudentUser))
+                {
+                    if (x.Contains("csacommunity"))
+                    {
+                        applyCommunityBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        applyCommunityBox.IsChecked = false;
+                    }
+                    if (x.Contains("csaservice"))
+                    {
+                        applyServiceBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        applyServiceBox.IsChecked = false;
+                    }
+                    if (x.Contains("csaachievement"))
+                    {
+                        applyAchievementBox.IsChecked = true;
+                    }
+                    else
+                    {
+                        applyAchievementBox.IsChecked = false;
+                    }
+                }
+            }
             helper.hasCommunityAward(userAwards, currentStudentUser);
             helper.hasServiceAward(userAwards,currentStudentUser);
             helper.hasAchievementAward(userAwards,currentStudentUser);
@@ -320,19 +350,7 @@ namespace Abington_Tracker
             studentAward3Display.Text = "CSA Achievement Status: " + helper.hasAchievementAward(userAwards, currentStudentUser);
         }
 
-        private void resetAwardStrings()
-        {
-            hasCommunity = "nnnnnnnnnn";
-            hasService = "nnnnnnnnnn";
-            hasAchievement = "nnnnnnnnnnnnnn";
-        }
-
-        private void setStringsn()
-        {
-            hasCommunity = "nnnnnnnnnn";
-            hasService = "nnnnnnnnnn";
-            hasAchievement = "nnnnnnnnnnnnnn";
-        }
+        
 
         private void CreateStudentButton_Click(object sender, RoutedEventArgs e)
         {
@@ -507,6 +525,45 @@ namespace Abington_Tracker
                 MessageBox.Show("Error: No user was searched, or a field was left empty.", "User Entry Error");
             }
             
+        }
+
+        private void ApplyAwards_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentStudentUser != null)
+            {
+                if (true)
+                {
+                    hasCommunity = "nnnnnnnnnn";
+                    hasService = "nnnnnnnnnn";
+                    hasAchievement = "nnnnnnnnnnnnnn";
+                    if (applyCommunityBox.IsChecked ?? false)
+                    {
+                        hasCommunity = "csacommunity";
+                    }
+                    if (applyServiceBox.IsChecked ?? false)
+                    {
+                        hasService = "csaservice";
+                    }
+                    if (applyAchievementBox.IsChecked ?? false)
+                    {
+                        hasAchievement = "csaachievement";
+                    }
+                }
+                for (int i = 0; i < userAwards.Count; i++)
+                {
+                    if (userAwards[i].Contains(currentStudentUser))
+                    {
+                        userAwards[i] = currentStudentUser + "," + hasCommunity + "," + hasService + "," + hasAchievement;
+                    }
+                }
+                helper.userDataUpdater(userAwards, userAwardsPath);
+                DisplayStudentData();
+                ((Storyboard)FindResource("animate")).Begin(awardsApplied);
+            }
+            else
+            {
+                MessageBox.Show("Error: You must first search for a student before you can apply awards", "User Entry Error");
+            }
         }
     }
 }
