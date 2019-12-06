@@ -245,36 +245,6 @@
                             12th - Senior
                         </ComboBoxItem>
                     </ComboBox>
-                    <!--<StackPanel
-                        Margin="8 0">
-                        <CheckBox
-                            IsChecked="True">
-                            Checked
-                        </CheckBox>
-                        <CheckBox
-                            IsChecked="False">
-                            Unchecked
-                        </CheckBox>
-                        <CheckBox
-                            IsChecked="{x:Null}">
-                            Indeterminate
-                        </CheckBox>
-                        <CheckBox
-                            IsChecked="True"
-                            IsEnabled="False">
-                            Disabled Checked
-                        </CheckBox>
-                        <CheckBox
-                            IsChecked="False"
-                            IsEnabled="False">
-                            Disabled Unchecked
-                        </CheckBox>
-                        <CheckBox
-                            IsChecked="{x:Null}"
-                            IsEnabled="False">
-                            Disabled Indeterminate
-                        </CheckBox>
-                    </StackPanel>-->
                     <Button 
                         Click="CreateStudentButton_Click"
                         HorizontalAlignment="Right"
@@ -303,13 +273,6 @@
                             Student Profile Creation Successful!
                         </TextBlock>
                     </materialDesign:Card>
-                    <!--<ListBox ItemsSource="{Binding Items}" Width="275" Height="200" x:Name="createListBox">
-                        <ListBox.ItemTemplate>
-                            <DataTemplate DataType="{x:Type local:ItemViewModel}">
-                                <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Title}" />
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>-->
                     <materialDesign:Card
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
@@ -351,7 +314,184 @@
             <!-- End Second Page-->
             <TabItem Header="Update Student Information">
                 <Grid>
-                    
+                    <TextBlock Name="studentUpdatePrompt" Style="{StaticResource MaterialDesignTitleTextBlock}" HorizontalAlignment="Left" Margin="20,10,21,0" VerticalAlignment="Top">
+                    Search For Your Desired Student:
+                    </TextBlock>
+                    <TextBox 
+                        x:Name="updateSeachStudent"
+                        materialDesign:HintAssist.Hint="Search For A Student"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="20,40,21,0" 
+                        Width="120"/>
+                    <ComboBox
+                        x:Name="updateSearchReq"
+                        materialDesign:HintAssist.Hint="Search Req."
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Margin="150,37,21,0">
+
+                        <ComboBoxItem>
+                            Student ID
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            Full Name
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <Button
+                        x:Name="updateSearch"
+                        Click="UpdateSearch_Click"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Width="75"
+                        Height="33"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="235,45,21,0"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        ToolTip="Resource name: MaterialDesignRaisedButton" Content="Search">
+                    </Button>
+                    <TextBlock
+                        Style="{StaticResource MaterialDesignSubheadingTextBlock}"
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="20,90,21,0" 
+                        >
+                        Edit Student's Current Data:
+                    </TextBlock>
+                    <TextBox 
+                        x:Name="updateStudentsFirstName"
+                        materialDesign:HintAssist.Hint="Update Student's First Name"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="20,120,21,0" 
+                        Width="200"/>
+                    <TextBox 
+                        x:Name="updateStudentsLastName"
+                        materialDesign:HintAssist.Hint="Update Student's Last Name"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="20,170,21,0" 
+                        Width="200"/>
+                    <TextBox 
+                        x:Name="updateStudentsUser"
+                        materialDesign:HintAssist.Hint="Update Student's User ID"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="20,220,21,0" 
+                        Width="200"/>
+                    <TextBox 
+                        x:Name="updateStudentsHours"
+                        materialDesign:HintAssist.Hint="Update Student's Hours"
+                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" 
+                        HorizontalAlignment="Left" 
+                        VerticalAlignment="Top" 
+                        Margin="20,270,21,0" 
+                        Width="200"/>
+                    <ComboBox
+                        x:Name="updateStudentGrade"
+                        materialDesign:HintAssist.Hint="Select Student's Current Grade"
+                        Width="200"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Margin="20,320,0,0"
+                        ItemsSource="{Binding LongListToTestComboVirtualization}"
+                        Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                        <ComboBoxItem>
+                            9th - Frehsman
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            10th - Sophmore
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            11th - Junior
+                        </ComboBoxItem>
+                        <ComboBoxItem>
+                            12th - Senior
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <materialDesign:Card
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource PrimaryHueDarkBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Margin="240,120,0,0"
+                        Width="250"
+                        Padding="8">
+                        <StackPanel>
+                            <TextBlock
+                                Margin="16 16 12 8"
+                                FontSize="16">
+                                Select Applicable Awards
+                            </TextBlock>
+                            <CheckBox
+                                x:Name="updateCommunityAward"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Community (50+ hours)
+                            </CheckBox>
+                            <CheckBox
+                                x:Name="updateServiceAward"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Service (200+ hours)
+                            </CheckBox>
+                            <CheckBox
+                                x:Name="updateAchievementAward"
+                                Margin="16 4 16 0"
+                                Style="{StaticResource MaterialDesignUserForegroundCheckBox}">
+                                CSA Achievement (500+ hours)
+                            </CheckBox>
+                            <Separator
+                                Style="{StaticResource MaterialDesignLightSeparator}" />
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card
+                        x:Name="updateUserFound"
+                        Visibility="Hidden"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Width="81"
+                        Padding="8"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        UniformCornerRadius="6" Margin="-55,0,0,246">
+                        <TextBlock
+                            TextWrapping="Wrap">
+                            User Found!
+                        </TextBlock>
+                    </materialDesign:Card>
+                    <Button 
+                        Click="UpdateStudentButton_Click"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        x:Name="updateStudentButton"
+                        Margin="0,0,20,20"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        Width="200"
+                        ToolTip="Resource name: MaterialDesignRaisedButton">
+                        _Update Student Profile
+                    </Button>
+                    <materialDesign:Card
+                        x:Name="updateSuccessful"
+                        Visibility="Hidden"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Background="{DynamicResource PrimaryHueMidBrush}"
+                        Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"
+                        Width="210"
+                        Padding="8"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                        UniformCornerRadius="6" Margin="0,0,15,60">
+                        <TextBlock
+                            TextWrapping="Wrap">
+                            Student Profile Update Successful!
+                        </TextBlock>
+                    </materialDesign:Card>
                 </Grid>
             </TabItem>
             <!--<TabItem Header="Update Monthly Activities">

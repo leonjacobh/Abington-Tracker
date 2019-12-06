@@ -152,12 +152,113 @@ namespace Abington_Tracker
                         ((Storyboard)FindResource("animate")).Begin(userFound);
                     }
                 }
+                hourSeachStudent.Clear();
+                hourSearchReq.SelectedIndex = -1;
             }
             else
             {
                 MessageBox.Show("Please select search type (Student ID or Full Name)", "User Entry Error");
             }
             
+        }
+
+        public void loadCurrentData(String userID)
+        {
+            updateStudentsUser.Text = userID;
+            foreach (String x in userHours)
+            {
+                if (x.Contains(userID))
+                {
+                    updateStudentsHours.Text = x.Substring(x.IndexOf(",") + 1);
+                    
+                }
+            }
+
+            foreach (String x in nameUser)
+            {
+                if (x.Contains(userID))
+                {
+                    updateStudentsFirstName.Text = x.Substring(0, x.IndexOf(" "));
+                    updateStudentsLastName.Text = x.Substring(x.IndexOf(" ")+1, x.IndexOf(",") - currentStudentUser.Length);
+                    if (updateStudentsLastName.Text.Contains(","))
+                    {
+                        String p = updateStudentsLastName.Text;
+                        p = p.Substring(0, p.IndexOf(","));
+                        updateStudentsLastName.Text = p;
+                    }
+                }
+            }
+
+            foreach (String x in userGrade)
+            {
+                if (x.Contains(userID))
+                {
+                    if (x.Substring(x.IndexOf(",") + 1).Equals("9t"))
+                    {
+                        updateStudentGrade.SelectedIndex = 0;
+                    }
+                    else if (x.Substring(x.IndexOf(",") + 1).Equals("10"))
+                    {
+                        updateStudentGrade.SelectedIndex = 1;
+                    }
+                    else if (x.Substring(x.IndexOf(",") + 1).Equals("11"))
+                    {
+                        updateStudentGrade.SelectedIndex = 2;
+                    }
+                    else if (x.Substring(x.IndexOf(",") + 1).Equals("12"))
+                    {
+                        updateStudentGrade.SelectedIndex = 3;
+                    }
+                }
+            }
+
+            foreach (String x in userAwards)
+            {
+                if (x.Contains(userID))
+                {
+                    if (x.IndexOf("csacommunity") > 0)
+                    {
+                        updateCommunityAward.IsChecked = true;
+                    }
+                    if (x.IndexOf("csaservice") > 0)
+                    {
+                        updateServiceAward.IsChecked = true;
+                    }
+                    if (x.IndexOf("csaachievement") > 0)
+                    {
+                        updateAchievementAward.IsChecked = true;
+                    }
+                }
+            }
+        }
+
+        private void UpdateSearch_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("We Hit Here 1");
+            if (updateSearchReq.Text.Equals("Full Name") || updateSearchReq.Text.Equals("Student ID"))
+            {
+                foreach (String x in nameUser)
+                {
+                    Console.WriteLine("We Hit Here 2");
+                    String xLower = x.ToLower();
+                    String grabLower = updateSeachStudent.Text.ToLower();
+                    if (x.Contains(updateSeachStudent.Text) || xLower.Contains(grabLower))
+                    {
+                        Console.WriteLine("We Hit Here 3");
+                        currentStudentUser = x.Substring(x.IndexOf(",") + 1);
+                        Console.WriteLine(currentStudentUser);
+                        loadCurrentData(currentStudentUser);
+
+                        ((Storyboard)FindResource("animate")).Begin(updateUserFound);
+                    }
+                }
+                hourSeachStudent.Clear();
+                hourSearchReq.SelectedIndex = -1;
+            }
+            else
+            {
+                MessageBox.Show("Please select search type (Student ID or Full Name)", "User Entry Error");
+            }
         }
 
         private void AddHoursButton_Click(object sender, RoutedEventArgs e)
@@ -184,6 +285,7 @@ namespace Abington_Tracker
                             helper.userDataUpdater(userHours, userHoursPath);
                             DisplayStudentData();
                             ((Storyboard)FindResource("animate")).Begin(hoursAdded);
+                            hoursToAdd.Clear();
                         }
                     }
                     else
@@ -203,11 +305,14 @@ namespace Abington_Tracker
             helper.hasCommunityAward(userAwards, currentStudentUser);
             helper.hasServiceAward(userAwards,currentStudentUser);
             helper.hasAchievementAward(userAwards,currentStudentUser);
-            
+
+            String gradeStr = helper.getUserGrade(userGrade, currentStudentUser);
+            if (gradeStr.Contains("t")) { gradeStr = gradeStr.Substring(0, 1); }
+
             studentFullNameDisplay.Text = "Student's Full Name: " + helper.userToName(nameUser, currentStudentUser);
             studentUserIDDisplay.Text = "Student's User ID: " + currentStudentUser;
             studentHoursDisplay.Text = "Student's Current Hours: " + helper.getUserHours(userHours, currentStudentUser);
-            studentGradeDisplay.Text = "Student's Current Grade: " + helper.getUserGrade(userGrade, currentStudentUser);
+            studentGradeDisplay.Text = "Student's Current Grade: " + gradeStr;
             studentAward1Display.Text = "CSA Community Status: " + helper.hasCommunityAward(userAwards, currentStudentUser);
             studentAward2Display.Text = "CSA Service Status: " + helper.hasServiceAward(userAwards, currentStudentUser);
             studentAward3Display.Text = "CSA Achievement Status: " + helper.hasAchievementAward(userAwards, currentStudentUser);
@@ -305,6 +410,11 @@ namespace Abington_Tracker
             {
                 MessageBox.Show("Error: Some field was left empty, or a letter was entered as a number.", "User Entry Error");
             }
+        }
+
+        private void UpdateStudentButton_Click(object sender, RoutedEventArgs e)
+        {
+            ((Storyboard)FindResource("animate")).Begin(updateSuccessful);
         }
     }
 }
