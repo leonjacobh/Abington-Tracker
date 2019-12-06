@@ -60,6 +60,8 @@ namespace Abington_Tracker
         public String hasService = "nnnnnnnnnn";
         public String hasAchievement = "nnnnnnnnnnnnnn";
 
+        public String previousUser;
+
         DatabaseUpdater helper = new DatabaseUpdater();
 
         //Populates all lists with respective data
@@ -248,7 +250,7 @@ namespace Abington_Tracker
                         currentStudentUser = x.Substring(x.IndexOf(",") + 1);
                         Console.WriteLine(currentStudentUser);
                         loadCurrentData(currentStudentUser);
-
+                        previousUser = currentStudentUser;
                         ((Storyboard)FindResource("animate")).Begin(updateUserFound);
                     }
                 }
@@ -397,7 +399,7 @@ namespace Abington_Tracker
                     }
                     else
                     {
-                        MessageBox.Show("Error: Hours Must Be Entered As A Numeric Quantity, Not Characters", "User Entry Error");
+                        MessageBox.Show("Error: Hours must be entered as a numeric quantity, not characters", "User Entry Error");
                     }
                 }
                 else
@@ -408,12 +410,100 @@ namespace Abington_Tracker
             }
             else
             {
-                MessageBox.Show("Error: Some field was left empty, or a letter was entered as a number.", "User Entry Error");
+                MessageBox.Show("Error: Some field was left empty.", "User Entry Error");
             }
         }
 
         private void UpdateStudentButton_Click(object sender, RoutedEventArgs e)
         {
+            if (updateStudentsFirstName.Text.Length > 0 && updateStudentsLastName.Text.Length > 0 && updateStudentsUser.Text.Length > 0 && updateStudentGrade.SelectedIndex != -1)
+            {
+                    if (updateStudentsHours.Text.IndexOfAny("abcdefghijklmnopqrstuvwxyz".ToCharArray()) == -1)
+                    {
+                        if (true)
+                        {
+                            hasCommunity = "nnnnnnnnnn";
+                            hasService = "nnnnnnnnnn";
+                            hasAchievement = "nnnnnnnnnnnnnn";
+                            if (updateCommunityAward.IsChecked ?? false)
+                            {
+                                hasCommunity = "csacommunity";
+                            }
+                            if (updateServiceAward.IsChecked ?? false)
+                            {
+                                hasService = "csaservice";
+                            }
+                            if (updateAchievementAward.IsChecked ?? false)
+                            {
+                                hasAchievement = "csaachievement";
+                            }
+                        }
+
+                        String userPlusAwards = createUserID + "," + hasCommunity + "," + hasService + "," + hasAchievement;
+                        userPlusAwards = userPlusAwards.Substring(userPlusAwards.IndexOf(": ") + 2);
+
+                    for (int i = 0; i < nameUser.Count; i++)
+                    {
+                        if (nameUser[i].Contains(currentStudentUser))
+                        {
+                            nameUser[i] = updateStudentsFirstName.Text + " " + updateStudentsLastName.Text + "," + updateStudentsUser.Text;
+                        }
+                    }
+
+                    for (int i = 0; i < userGrade.Count; i++)
+                    {
+                        if (userGrade[i].Contains(currentStudentUser))
+                        {
+                            String fixedGrade = (String)updateStudentGrade.SelectedValue.ToString();
+                            fixedGrade = fixedGrade.Substring(fixedGrade.IndexOf(":") + 2, fixedGrade.IndexOf("t") - 1);
+                            userGrade[i] = updateStudentsUser.Text + "," + fixedGrade;
+                        }
+                    }
+
+                    for (int i = 0; i < userHours.Count; i++)
+                    {
+                        if (userHours[i].Contains(currentStudentUser))
+                        {
+                            userHours[i] = updateStudentsUser.Text + "," + updateStudentsHours.Text;
+                        }
+                    }
+
+                    for (int i = 0; i < userAwards.Count; i++)
+                    {
+                        if (userAwards[i].Contains(currentStudentUser))
+                        {
+                            userAwards[i] = updateStudentsUser.Text + "," + hasCommunity + "," + hasService + "," + hasAchievement;
+                        }
+                    }
+
+                    helper.userDataUpdater(nameUser, nameUserPath);
+                    helper.userDataUpdater(userGrade, userGradePath);
+                    helper.userDataUpdater(userHours, userHoursPath);
+                    helper.userDataUpdater(userAwards, userAwardsPath);
+
+                    updateAchievementAward.IsChecked = false;
+                    updateServiceAward.IsChecked = false;
+                    updateCommunityAward.IsChecked = false;
+
+
+                    updateStudentsFirstName.Clear();
+                    updateStudentsLastName.Clear();
+                    updateStudentsUser.Clear();
+                    updateStudentsHours.Clear();
+                    updateStudentGrade.SelectedIndex = -1;
+
+
+                }
+                    else
+                    {
+                        MessageBox.Show("Error: Hours must be entered as a numeric quantity, not characters", "User Entry Error");
+                    }
+                
+            }
+            else
+            {
+                MessageBox.Show("Error: No user was searched, or a field was left empty.", "User Entry Error");
+            }
             ((Storyboard)FindResource("animate")).Begin(updateSuccessful);
         }
     }
